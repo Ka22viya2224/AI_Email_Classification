@@ -1,0 +1,21 @@
+﻿====================================
+Processed Time : 13-Jul-2026 06:42:03 PM
+
+From : hearthfullcreations@gmail.com
+Subject : Finance
+Priority : Medium
+Summary : Sender has a query regarding tax matters
+Suggested Action : Reply requesting more details about the specific tax doubt and provide or direct them to appropriate tax guidance or support
+Attachment : No Attachment
+====================================
+
+====================================
+Processed Time : 13-Jul-2026 06:42:08 PM
+
+From : cbetoban@gmail.com
+Subject : Salary revision
+Priority : Medium
+Summary : Employee requesting a salary revision
+Suggested Action : Acknowledge the request and forward it to the HR/compensation team to review the employee's salary against current policies and performance records, then communicate the decision to the employee.
+Attachment : E:\POC4\AI_Email_Classification\attachment\Screenshot_2026_0623_123052.jpg
+====================================

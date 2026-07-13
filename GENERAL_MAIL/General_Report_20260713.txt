@@ -1,0 +1,10 @@
+﻿====================================
+Processed Time : 13-Jul-2026 06:41:57 PM
+
+From : cbetoban@gmail.com
+Subject : Welcome
+Priority : Low
+Summary : Brief welcome message with thanks
+Suggested Action : Acknowledge the welcome and respond with a polite thank-you if appropriate
+Attachment : No Attachment
+====================================

@@ -1,0 +1,10 @@
+﻿====================================
+Processed Time : 13-Jul-2026 06:42:00 PM
+
+From : cbetoban@gmail.com
+Subject : IT
+Priority : High
+Summary : Employee reports that their laptop is not working
+Suggested Action : Acknowledge the issue, collect details about the laptop and the problem symptoms, and create an IT support ticket for troubleshooting or repair.
+Attachment : No Attachment
+====================================

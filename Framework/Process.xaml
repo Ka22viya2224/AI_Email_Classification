@@ -1,0 +1,438 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:isactr="http://schemas.uipath.com/workflow/integration-service-activities/isactr" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.ComponentModel;assembly=System.ComponentModel.TypeConverter" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uiascb="clr-namespace:UiPath.IntegrationService.Activities.SWEntities.C4A6B89FE2C_v2_sub_generateChatCompletion_Create.Bundle;assembly=C4A6B89FE2C_v2_sub_g.tYs4U15hvdM1cliFS6po3e2" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_dtGeneral" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_dtLeave" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_dtIT" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_dtFinanace" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_dthr" Type="InArgument(sd:DataTable)" />
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>818.4,454.4</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="100">
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Windows.Forms</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>UiPath.IntegrationService.Activities.Runtime.Models.FilterBuilder</x:String>
+      <x:String>UiPath.IntegrationService.Activities.Runtime.Models</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>UiPath.IntegrationService.Activities.Runtime.Helpers.TypeDetailsCustomization</x:String>
+      <x:String>UiPath.IntegrationService.Activities.Runtime.Activities</x:String>
+      <x:String>UiPath.Platform.Activities</x:String>
+      <x:String>UiPath.IntegrationService.Activities.SWEntities.C4A6B89FE2C_v2_sub_generateChatCompletion_Create.Bundle</x:String>
+      <x:String>UiPath.Web.Activities.JSON.Models</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>System.Dynamic</x:String>
+      <x:String>System.Collections.Specialized</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+      <x:String>UiPath.GSuite.Models</x:String>
+      <x:String>UiPath.Shared.Api.Google.Gmail.Models</x:String>
+      <x:String>UiPath.GSuite.Activities.Gmail.Enums</x:String>
+      <x:String>UiPath.Shared.Activities.Utils</x:String>
+      <x:String>UiPath.GSuite.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Shared.Activities.ConnectionService.Contracts</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="80">
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Windows.Forms</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>NPOI.Core</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>UiPath.IntegrationService.Activities.Runtime</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>C4A6B89FE2C_v2_sub_g.tYs4U15hvdM1cliFS6po3e2</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System.Collections.Specialized</AssemblyReference>
+      <AssemblyReference>UiPath.GSuite</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.GSuite.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
+      <AssemblyReference>System.CodeDom</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Forms</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="830,4436.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="in_From" />
+      <Variable x:TypeArguments="x:String" Name="in_Subject" />
+      <Variable x:TypeArguments="x:String" Name="in_Body" />
+      <Variable x:TypeArguments="x:String" Name="in_Attachment" />
+      <Variable x:TypeArguments="x:String" Name="Prompt" />
+      <Variable x:TypeArguments="uiascb:v2_sub_generateChatCompletion_Create" Name="AI_Response" />
+      <Variable x:TypeArguments="x:String" Name="out_txt" />
+      <Variable x:TypeArguments="njl:JObject" Name="jsonResponse" />
+      <Variable x:TypeArguments="x:String" Name="Category" />
+      <Variable x:TypeArguments="x:String" Name="Priority" />
+      <Variable x:TypeArguments="x:String" Name="Summary" />
+      <Variable x:TypeArguments="x:String" Name="SuggestedAction" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
+    <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="451.2,88" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
+    <Assign sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[in_From]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("From").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_4">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[in_Subject]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Subject").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[in_Body]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Body").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_5">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[in_Attachment]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Attachment").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_2" Message="[&quot;From: &quot; &amp; in_From &amp;&#xA;Environment.NewLine &amp;&#xA;&quot;Subject: &quot; &amp; in_Subject &amp;&#xA;Environment.NewLine &amp;&#xA;&quot;Body: &quot; &amp; in_Body &amp;&#xA;Environment.NewLine &amp;&#xA;&quot;Attachment: &quot; &amp; in_Attachment]" />
+    <Assign sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[Prompt]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String" xml:space="preserve">["You are an expert AI Email Classification Assistant." &amp;
+Environment.NewLine &amp;
+Environment.NewLine &amp;
+"Analyze the following email carefully." &amp;
+Environment.NewLine &amp;
+"Use the Subject, Body and Attachment information." &amp;
+Environment.NewLine &amp;
+"If Attachment is 'No Attachment', ignore it." &amp;
+Environment.NewLine &amp;
+Environment.NewLine &amp;
+"Choose ONLY one category from the following:" &amp;
+Environment.NewLine &amp;
+"- HR" &amp;
+Environment.NewLine &amp;
+"- Finance" &amp;
+Environment.NewLine &amp;
+"- IT" &amp;
+Environment.NewLine &amp;
+"- Leave" &amp;
+Environment.NewLine &amp;
+"- General" &amp;
+Environment.NewLine &amp;
+"- Other" &amp;
+Environment.NewLine &amp;
+Environment.NewLine &amp;
+"Email Details:" &amp;
+Environment.NewLine &amp;
+"From: " &amp; in_From &amp;
+Environment.NewLine &amp;
+"Subject: " &amp; in_Subject &amp;
+Environment.NewLine &amp;
+"Body: " &amp; in_Body &amp;
+Environment.NewLine &amp;
+"Attachment: " &amp; If(String.IsNullOrWhiteSpace(in_Attachment),"No Attachment",in_Attachment) &amp;
+Environment.NewLine &amp;
+Environment.NewLine &amp;
+"Return ONLY valid JSON." &amp;
+Environment.NewLine &amp;
+"Do not return markdown." &amp;
+Environment.NewLine &amp;
+"Do not explain your answer." &amp;
+Environment.NewLine &amp;
+"Return exactly this structure:" &amp;
+Environment.NewLine &amp;
+"{" &amp;
+Environment.NewLine &amp;
+"""Category"": """"," &amp;
+Environment.NewLine &amp;
+"""Priority"": """"," &amp;
+Environment.NewLine &amp;
+"""Summary"": """"," &amp;
+Environment.NewLine &amp;
+"""SuggestedAction"": """"" &amp;
+Environment.NewLine &amp;
+"}"]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <isactr:ConnectorActivity Configuration="H4sIAAAAAAAACu1d63LbOLJ+FZb+bLJlKZITJ5lUTe2RZTtWfNPqkpydnakUTEESRxSp4cW2ksrj7I/zHPti52sApACSEhVPJnFmWDs7I6MbDaDRaDQa3eDH2onD3XHY8b2IOR4Paq8+1gacBfaMXbtcAmuv/v3LXq3rLeMoLfhYu2QLXntVW/hj7orfe7UjJ1y6bKUgFwSxPAXioR04y8jxPYCGM25NOZpjkXPDrXbXEmQsP7C6R1bkW3HIG9Zw5oQWs4HiRCtrzCcsdqOQwBHqyxq3TjQTf86c6YyHkfVbzFxC969DHtzwseXHETq+Z838W37Dgz2LWWNnMuEB9yJFxGaedc2tkLvcjlDlmoVU0UOboROkNNAZb2xFaMXxpg1rgLbtGX5KKqEgM2MYj7NYotshUaCuydoNcGG4WhJnwihANfw98IPoKhgT2+utJnFJjPEtc2PCmy6j+kGjVd9v7h/UW6166ynqnPv+PF7SPF1d/4r+6vMQpvCEhChGaY9FM/z5ZMqjCxOT6tOM1sba7P3ySUyZM8VsfQQiGx+uVOdqr6Ig5nu1Y48kZAQuX4GtgTPmCaTnh46a6F7gLFiwqoGcEJ02ZtP3lESJknPfZgr5nzEH6l7tyusw74aFCb1ueMGjmT/usQB9i4hbBPi0lwphn037/LcYM5OTQhNkSCFAloJZ2ydnPzc1Hy3r59okoNqevXq/5B5zo9XPtVdWa49AC3b3PvLn3Aup7KDZFKXeGmEZ8BBVeb7qMvAXy4j+/rn2bubYMyyLKfOcD4JPkGOsQCFXLmdjEr+l4rflSHmbEF8tf2L1/Ws/cmyrF/g2D0OrHUf+QlJ51O+1H//j55po0fEw6FhMjWz2X35ssYBjqTjexA9kHeZa6NoNJjpQ9SK+WNIajgNO9ZqNA1nsL98vxXg+1XQx6oanznjMvWT6cgJwAQY7SxbQVJVPuuRTbsJ7aXFO5UCrBDQGwC0MSzALii6ybBS5XDAmSIVlizw836uR4JBuSIQ0O5ZDf0xin/bWCXvdrlwz43yfu13omgirmSpnu/5uBk6g51B8Eski/AnGIUbgkGJWw2pY1pGmJyfMhSJdj+Xa9yE0njmYF1nhFrX0iduyoLMjponTVjpmD2o2N3UOcFzMaQlLJgJJct9kSXcCbR2JrYC4D8W8UryBtkbVJ73TLvYG1yW9vmDhnLQ6x5yTlvfEqlHbyPn5RcMCOTlog0hKwPFsNx6jUC2wlNdd7Bs+NiAbG0a4J2CFBNgNc1waZ0JBbQmWdelHHCWQQccYksBK97KJVgnDWYlOiU2Gj8um92Xp9GY088ea/K2IDrBxgmI/dsU28RGSPxE1igW7G3bQB7EwVEPd8J0fzCeuf3t8R1ovFFOogAkx0TeiT4P/5RP2n0w3oDr4/bqRbCKf0wtRTt34ZcftrGKaybQydegybxqzKe/AGClc+wlCoSJPgMnKUDpdakIy0tRSwWIKySojZQ+iJSbYD2TUxAvdum1PAmfOGKZ4r5Zs/WyiD6S9mLHAsXX4woAH7NoEBwY4DMn+4jpCaCB84ME1c36FAaDjfNBxDmN3ik6IlZ9gXE8NDO5NoUt0uGfA/dDL1Dd60WERcw24zQz4B27PdKhR+x3sTQNqiMIRhmaAxwbp1xz2h94yBEYHB5zPNSisXQ167E1dkzjMDw0+WGYbx/LX64eRn2EMjwzGsRD2gg6OdXCPB6FZfWIM7sTxMu1PHAOO7dNg7MSQnm5gVp6anMOM22brU4M7r+NfYV1FulhMje6f8uuA32rgmcH7UwdbqQ41+t4JfNA2mp8ZvT+NvZzYzoz228GCZ9g/M2SnC7E04Y4xPV1v7HvY6EyUsY7yhkEGzBX4a0YAYX+bFOYGwhn7wOb6NMznBni2gHbRoIZ+OGOexyDxGtyQ0DPYLGbbvgGOA5zbZtYj/MAy+dV5rKMazDxbBdPVBx1ssPKc+RrMNVo5xyk7xkoxOoKjoFE9usnAb3T4BfTHlIVkIaZnU0NFXTCbY7JMGot5lsYK/1/oGIZEX/je1M9IxMLg5wVJPARVgwe5NnSooQ8OwWVTVhYGEy/50lSznrFgjmJ4DHSo0flLP7jlJGnWo0N/vvjvf1x9Mj1jRq7Gji4zvjGGXuz9il1Hgy8Nge2BRYbeWBr96LFwFunCsDR40MOOGU9hJ3H0M2AfHKObcFkc9jehy98sW6E31Cv0cUbNiEFgjL0fw3oz4YagD1z/hul7QjjPgrNaJTQYMEAPjFkMjfbb7nW2g+FvRn1s2Rm4MT+DW3BNhxr8HdxyWtI6/CZTe+aY3bvV4UO2cFwNGhlzP+QuZkMHGxI6nDGdMpxGOjAO5mbPImNco9V0FuuqLjZW+GgewMdoMiY2pmYUjPWugZYO/HBt7PSxYQO9dXhEvkZjcd6YGxKcdYDXBzg6uQ68JGMN9cOsPiM7rwB/GMDPIj0guQrQgb/8DldZdYqojl5f++i1dJxjL4JfAUY9n/qBw8N///2XokOY8KLYEmtVeBDzl8ozmMUmV76d0qeDGAPa6gO8k35AnpOJ5fkReTzgvIGTRMNNnCYBv3E4dGHJqY385tljG5ndwpGWLFZVkLHMyT9PhLN4ojUddwYj0kIb14YhJ4ovZam+NWveWg3bKNZ3k/GYplfDTEr0c8gCDiQNRf6tK8f+uQamv3QruGflW+n2Cto5wjQ8GTriyiZBpDJRpOH9E9YgiZCGlhbpYztsWwHO4uRvy7EPwL6E5Xk4eNc9GcItK5wDSQVRKBwGxikDuyU8uCzQtbks7aAwT7vrwanoJS7tQ+bNqXtt2/Zj3AgpfI1POrrCVsh52u0A11oYErMukwa68HgTX6xHR5fdx3n67X6CmmAWkI1J8uGNT2hlhtseJnVpyEU1I3anak8cqRkKJmQ4ZHddA2lzV0QlEiu4OlHNevS2PXxcRFP8EnhA20CPDnG4dfPmuO6T05AnNCLeb2Z8QgYe2TikfTsspKFg2/rRgS+J/Mn5mRop0Lba4wA3msHfQgtnb9z+6PLbHh0JYHguQdvILCC/NqRnCz8uJEo5S6wlC8MlNGYRlZ6CbatPwgNffIEKbI8wqfDlF4zlkLtTJ17gAlgthFzlw+NE8neubb3d30IAwAISO0rq4XGJpMqzDm7dcICx1DpUvXrUuey90Q81h/1zQpP77EZSnd5JQT/6KN5YZa1Wjixa67jIe202nGqTo/5r04VHfoaSVdZpb11likZWxovolIm6IjXjuPycwQ4IboBZROhUYAwkwkY6m0W8094s4qqy3PXBVNmWUtmpopT1cHo97V4+NimrirKeWa2gndCHO86FmzqMA4a736LODgRON0Ep6DMOf9zcCQronOsbQiER7FF9HFsIbb1HSZHq9TsFC6RzmeBvp308wiXYtdqT82SOR0cE3Vy3VLhAoUS4QOZ1bwD7wYd3DCoENrJeHbCOBjIrphqnbLs8Hpkb9+Y9E1Q3y+fxFhWMilIerAG344BmKBHGweDyMRnZdA19w1wxi0cGWVkzqVhInNThBmEfmrJ+TIq+bJwnUqrLZ/CkXzaDipRSD1tWzElfLb7NK0bR8jTVKUQTWrurj/FE050F9TdP4Ul/8xSqypumsXs5OD42O1E2b4riRovOeoQ6//2/wLcGvcz4dp/DHTfNk37Jpilvb6yjRCTUhOeNq6PjMpGQpFYZZVVAaLt6Sshsns6j483TmdTeuHIMOjvwOyGYZXgBtTWr82RO4fi2zuhfGV1+etY9Kjh1nI6Svausg/KWRo44I28FVHcYcUKwdMSno20jxtUOTNOeYB9pP/MAh02sbSiw7mWKqjDzxEaeg8u87Lw+arPxjLGggIvdS1mlbMjpNVR2ds6GvSKyR9tFuBtwXMaO13ZLL76GroV2kVbUo15vUET2OKkg8TfaVJ9D37rZ37UJ0zzvhgHjhkGr0zkvVsWqEhmpW07s51uNWLozXOU1ktn+sEwbSSonDuILYMibjoruUJZnfRXiqrGk8296WzsvSZSr0ze9sgFIShfrrWipZk5fNW96F2oHSuZ1K4mOH0BtwqgqppGC80RSU7SPGzA6dxYrmG6ZO8GgBlEt3iPe9FKM4hUmyahNOzUt1saXaRy96ZVa7efxHV9c+3EwzXqGcpYX4KCCYEvB8VBv6Hyryakq3rdZ36t7924aP/Kt4y41yqq83FxcGL6rPOckkV322wvhvzrKk7jkt9ZPsBJJp21ffZc/bV19OqHyNXj5U9ka1Ol1PfGfPoLUvbiQmsRQCNuJXeCeDatIhA6qQ20BwQTraiJxttNUqwHBPBOKDS6gJzEUQp5Yj64tl0tywNFWSxdwlgj5rfdiKAahg/Nke6cKV6AqzKJZTi6XrQ4u6z5wb4O89YYKXixuKZVdJK63i8d0ACf3zKJIMpuVUvypvRs5ERayq9Y86yeIOl4B6SXuZy24qfWD34D+ziFtO5YatctOM5LcLsw+HuzC7FsHnt8NvWufvtX9GadlfRsy5xbbQLGJMnxXbKKoSunUdHigOgzDqd3vPBniXzqPhu8SXA21gGJyKMlzZvhu84Fl1Dhr7KCrRmdlukoQSlmhlEpqEV6eFlmco7OkwiYFY1LN77SX3curx4UUt2y2gqgy5iEzS7YCKdyZUs5PStsgKpET3CKKg8auMj8qlXlBbYc5GZTPCQjBCSQGvFk+RoPR2TYJARE6AN04YwScrzm2wVDoZlxDo8G6clJ3sytUjT2eWseUWmLzhTi84drMpiuy43aBGBG6hi2RNwxk+/4+GhTs70YARzcU+8xA5IIll/FVVEcVUP/Aozps35vIE81wBsKUJVYU0mGt8azQhhFRGNaxgGG4wNVZFllkR4mMSOzZcKDLpCSRpjJZWSwUSS9kK4rwjbHIT1lHb6SONj16o4WhiQwzIIx9OA1kj/SElWbjxUGVr3KffBVsQb43rjJWvsQC05IkcwtrsAojvlBpKIUrKtQxRHCUj7iSO8pZSckm2Sz3Skls5XNU11mcM+4uJzGiCaBwwoiiFu+d3mcm52r8ifzlWY4xQ39pzXMMaSc3Fdc8uuU4qbWE0njWRGDYMMnllumZCjHN8JY/YW5QYoVMjVOJ5FBKxNCGkQAJkmu2OeD4NKeAnmoKCBhPyZ1pMhJEml8uX05PmP+9yXK1KSdVXYdYgZr6o9VoFhbUm82WXnhQXDhxEf5tFu+DQGGxIGEWCDwUQchmgb907IbtsnjM63AoeTyqP6s/B1SV+cs4RMnB/1CGe6sliG+ueCAS4Zs/7P9Qv2m9ahbhInp5HqeoLXR3I2pKVhA9aD3biPm0/iLBFrj7rc0deIqm17jPWs39/frN/k64zef7zS105dAE4tPmiy2IgqkCb38LpxTrzcHfJ/Fygzzfx94RDx488+tSmDCCOgbaekkCJgGirEUPImTKmi/rzefZsgP5YIIoa7Tg3PQE5KDeBJFnGiRpLw/JF6L55vN6TwanJoUp8On+XP1+elCHP/TaF/iZshzK81ytZmv/QJVJWRZDfJEWaV02yrVB6uXZRyRk4b4q3Ed5Wihk4nm9+RQMrP2hJkWlCStNWGnCShN+T5pwh2M4WaGvAziY6JmJnEXcUXb/VMcwrGNZ18xrT48LsGkdz4bvP1w/D0G2MyI64Q21M29FCHvaCa0JF4+0UKaFfxuKd1CEeYzDB1zO1MwycHhEURlp9LTrT3HlT7Tnnn8Lf8aUXq9Qr2asX8CYpM8m7Sm6lHAfpM5W/HEV2PQ0E2x0nHsOY3vOI+sWpjzseN+OyaMXyneTruksEC9dn1FMCJDlbxxgRPTxGJ4HO8KtO6XzU0ZG5CzEoy5lGSLPckcj3FeSvZLmjRjlNJ3ppcMdDkyUH+B4Y35ngCjsGQMNcbtq84wX8Yu/mEIMyMkS9SB/uLJtvgRHCRg+cfqqg+SdwVyIJxLU01qCqUm2DdgImfOVXBZL3x6kI5I1KHkHteiiGAyiqjShbBLxoCGattKGZ9SyddBExBVECFPoLzDnNMOus0CY6KOnzYvDx3Cvx0tyUKNcPjkUvrJ6Ryd71pvB1eWe1Rm83bOOrjqDPWv4v0NtxhVn9Pn+gt6igvX8uw9tpuDcx+be3qt7md4ZQd+TS6Goc+nLRw+ObVcqG+3Bsu4e0vatxOcbSMi3nPLPGe4f9CZQpWoqVVOpmkrVZFTN73skcYJ7QB6c8VXOeDSs8hOBhhCCaJYzKA1ESU8YhPSWA72jJ54ghIok6zE5pigrkl5nLbHNn2980VQ2lX/SVA4medA0i0WV5d4Ru+7qn+JqEsFju75qul2FfyvTJ7MXPSDbx9yhv6zp8zXY9g0s7Z1Z9sXMqK8oPl9XQr7ZlH/GMO9pLVaqplI1laqpVM1nqppNb6qXW4qI3+gVxm8sy+M3msJP3FLhG9gIjegN+TAytC09v00/EbY79hfkZTajNZqNl42ScLEXu4SLiSePq2iNKlqjitaoojWqaI0qWqPShJUmrDThX08Tlsd0w0kgsvpMs7errnxMs5eA6hNVKsoi9XsW3ZqXOD5fbnR8Cqo87/hUn9JKPJ8K7R+pi/fHj+nPT3l/qPdFPKBlThrd3/y7/Xd/v5f/ZkMXSn119/TAfYURPzTf7j1dWqI3fxArr7yE1mg5pvzZjY66YhZXcl3J9S47xvq7brlN44LdiaQ5CbbkG0OF2XUKUTlRaC+RVWgjUcksyYei1mlAyrkiUCVxqrnC4ky2nKUb04fh6CGF9ONgWCfQ7U+0bCKE51HwFr+zuQzbsm7EQ0zq224i+grFIj4MvGhY3ehvITw9ofycDn2iioCyEkro81bCuUOfsZKdll9VTIYp+xr6FIEGfBHpF/rYSgMfnUy+w6bGoA2vNHPnBzNz5zmZM7v6fb5qVsMDTdJ5CNke321yQyVAlQDteMrQPpOZd7CbsNxeIdVskhiKCFv1NdwJsykcA/+EjL5mQYEYa1LpJ3RPZc6koBJaC85ol9E+notI3ojN6W9K7nbCOTzyQ0SBNxs/CM0sylWzYjNZYjGAkkhgTbaUkL6/OMYlwCOsdMSAIMoc2wgLptgB0u49TqK26YH/aIY945a7bn3MJwg3F8Heoi1+h4GBXIgrBLXjyS3RXUcOy+coHPlVAfpC5N56v1NfCZYjposHoKkd5jK2XY4dckA9UpyVEc0imJm+4yj5ZF5KtLbfSOw3d7mR+Iz80UoDP0QN/H1omtwHifMpAwmGpWGYXg7zao/sCrG88d+GJfdKqAKlUQQR5wNu+vhtYsWmX8/GonMCrGgVkZF2LrFtRaQYFMaEYQWPuchqSSLKxOSJJ4Tn3HVmvi+SEwK+hCoSCPTZREA9dIU+kBg5i8xdYon1uN8qtB7vvWy/brJjlSeb8Tf+BfLgv3gK+Ofln39eXvu6qxL1C6TW3ye3f4cnA3Z/B+DBpsw/gJ3pe8gQr5RmpTQrpVkpze/GnJfnzatJXzhx8x5nZarDOxCsMQxjnl5mpOdE5anfy+Ir/23AYUzhFF7mcd3fL7WZn35Jm/nbZMR9B1dBf8Bl358zu7Gay9KvgYJ/9FDDRo9BTyF8BYfB7QwxyjJGeGWxJc76QaGvQL2Asd1XEDF3brFrn/x7oi1Y8tl44zJ9l3kbrvIRfNdvaVU+gspHUPkIKh9B5SOolGblWK0cq38OH0HOYO9osV4z37H5tli0tUvAzlfT49GSOC31GDU9IWY8yawFKiShYzLvT1zrm96HJNyN3rkWMQhTRJXRA2QykGAmjhsCIP0UdAhgSWO2H0Z7dBQgmvTiHMx7Pk5cGeyWXrwW3SDiIEUha+L+cUMvN972Fx8JnpUeCXDNVF0bVkeC6tqwujasrg2ra8M/35vklR+l8qNUfpSHeySAq/v98o98ymPCRam04snexuUOfcEQVzmfaU0fVNb0n2Vj+KsHQv01NsbqYzxf9WM8VWRdpQkrTVhpwt8bO/39f5ZsB7s3hOGbM3sHKIQLWGSe5FPsRkvxlcAUIVQfJiErt93rSic00U0c4SKRJQ5kmIowgKUnPAmhk4Eq6Scy1DvJMmNF74lpJ3ux65Z8xGT/eeVU/h7M4L+GGVjlolS5KA/vCFZZzN+p76BSmlUCX5XA96DjTO7qsbNk0azuhPUwApZdj7jLFzwKVvUlvSpdZ7Z8nEI59Ew7nPyC4uWKBJr5aJ0GlbEmCfECszjb11POyEbe/Mo1xnclPogoakpXZPo4x12U66xFznLzu+KF0TNDCSj5vklffb997buUz2is3yiTf3di0ZzxEJ82SjmCbZ9gX7BwzseqU9nHqQi0aSRJLAwl2ItwfzqWiPcN0WLyNJM8GTFvZS39CCgOc61et2uNWYTgHEZvROH+ABRcZqMp8cqH7JElimbySy1lH2t88RUZ9saJ3uMY/CqZ6g6ChtbhUwWRVbjE8CLrtToLShSDl+vBjRx6qLHRpXsPiTzgwQ3iqhpK2B0eNgbvjsFI8bPzrP388OUPJ8f7HfTpfRhfvy/u1vsOvcfCG4exN3Z5YxfcPauIeiP6V/hs1DqY3YwvWrbrnAyeL/2nfH/PekufdfS9H3FKof+hOk6qccB/9HgcBczds3rxtevYZ3w1pEPwj3SArZVP3I4zRAsZUyOwc3OWTSTqOKSN0MogkabMpCVwHMAThNxCzn2V1bLz1bJSu/UhzU9/uBjTW55dD7oY7oRU4QH4saamD3XFBKIqxudxejGI0tZe1ZQqV/9hTjAmuyxRwslzjapbe+brpFvXy2kULaUKpswhROpR4hiNhXJ+RPJYukFsWE4dZs/4WHv4lEb0KSk/DPxbhPx1I75Q5SpBDeMitU7+cmbP2ZTrPNh/aTJBtS9XKDXf7lrrRalj6lRegpkpM3ZQDLtz7Uq82yTbkQs2x8qrwRBlydOvN/tPNhI7Z940BgOAx+lvPEvYw58DTAC9VoTYxFMWHqKVOS0ePNk3JRYrEaW949D17blg5qf/BxV2yS4fwgAA" ConnectionId="f7a4b839-714e-4c41-a8fe-774a6b89fe2c" DisplayName="Content Generation" sap:VirtualizedContainerService.HintSize="451.2,424" sap2010:WorkflowViewState.IdRef="ConnectorActivity_1" UiPathActivityTypeId="aba52a00-4c05-318d-8f99-5ad924b2f277">
+      <isactr:ConnectorActivity.FieldObjects>
+        <isactr:FieldObject Name="prompt" Type="FieldArgument">
+          <isactr:FieldObject.Value>
+            <InArgument x:TypeArguments="x:String">[Prompt]</InArgument>
+          </isactr:FieldObject.Value>
+        </isactr:FieldObject>
+        <isactr:FieldObject Name="isPIIEnabled" Type="FieldArgument">
+          <isactr:FieldObject.Value>
+            <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+          </isactr:FieldObject.Value>
+        </isactr:FieldObject>
+        <isactr:FieldObject Name="isFilterPIIEnabled" Type="FieldArgument" />
+        <isactr:FieldObject Name="languageCode" Type="FieldArgument" />
+        <isactr:FieldObject Name="piiEntityCategories_array" Type="FieldArgument" />
+        <isactr:FieldObject Name="confidenceThreshold" Type="FieldArgument" />
+        <isactr:FieldObject Name="topK" Type="FieldArgument" />
+        <isactr:FieldObject Name="contextGrounding" Type="FieldArgument">
+          <isactr:FieldObject.Value>
+            <InArgument x:TypeArguments="x:String">None</InArgument>
+          </isactr:FieldObject.Value>
+        </isactr:FieldObject>
+        <isactr:FieldObject Name="_file" Type="FieldArgument" />
+        <isactr:FieldObject Name="folderKey" Type="FieldArgument" />
+        <isactr:FieldObject Name="topP" Type="FieldArgument" />
+        <isactr:FieldObject Name="indexID" Type="FieldArgument" />
+        <isactr:FieldObject Name="max_tokens" Type="FieldArgument" />
+        <isactr:FieldObject Name="temperature" Type="FieldArgument" />
+        <isactr:FieldObject Name="frequency_penalty" Type="FieldArgument" />
+        <isactr:FieldObject Name="numberOfResults" Type="FieldArgument" />
+        <isactr:FieldObject Name="presence_penalty" Type="FieldArgument" />
+        <isactr:FieldObject Name="n" Type="FieldArgument" />
+        <isactr:FieldObject Name="top_p" Type="FieldArgument" />
+        <isactr:FieldObject Name="_stop" Type="FieldArgument" />
+        <isactr:FieldObject Name="modelName" Type="FieldArgument">
+          <isactr:FieldObject.Value>
+            <InArgument x:TypeArguments="x:String">gpt-5.1-2025-11-13</InArgument>
+          </isactr:FieldObject.Value>
+        </isactr:FieldObject>
+        <isactr:FieldObject Name="instruction" Type="FieldArgument">
+          <isactr:FieldObject.Value>
+            <InArgument x:TypeArguments="x:String" xml:space="preserve">You are an AI Email Classification Assistant.
+
+Analyze the email provided in the user prompt.
+
+Use the From, Subject, Body, and Attachment information.
+
+Return ONLY valid JSON.
+
+Do not say the email is empty unless all fields are actually empty.
+Do not return markdown or explanations.</InArgument>
+          </isactr:FieldObject.Value>
+        </isactr:FieldObject>
+        <isactr:FieldObject Name="out_text" Type="FieldArgument">
+          <isactr:FieldObject.Value>
+            <OutArgument x:TypeArguments="x:String">[out_txt]</OutArgument>
+          </isactr:FieldObject.Value>
+        </isactr:FieldObject>
+        <isactr:FieldObject Name="out_maskedText" Type="FieldArgument">
+          <isactr:FieldObject.Value>
+            <OutArgument x:TypeArguments="x:String" />
+          </isactr:FieldObject.Value>
+        </isactr:FieldObject>
+        <isactr:FieldObject Name="Jit_v2_sub_generateChatCompletion" Type="FieldArgument">
+          <isactr:FieldObject.Value>
+            <OutArgument x:TypeArguments="uiascb:v2_sub_generateChatCompletion_Create" />
+          </isactr:FieldObject.Value>
+        </isactr:FieldObject>
+        <isactr:FieldObject Name="out_contextGroundingCitationsString" Type="FieldArgument">
+          <isactr:FieldObject.Value>
+            <OutArgument x:TypeArguments="x:String" />
+          </isactr:FieldObject.Value>
+        </isactr:FieldObject>
+      </isactr:ConnectorActivity.FieldObjects>
+    </isactr:ConnectorActivity>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_3" Message="[out_txt]" />
+    <ui:DeserializeJson x:TypeArguments="njl:JObject" JsonSample="{x:Null}" Settings="{x:Null}" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="451.2,173.6" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[jsonResponse]" JsonString="[out_txt]" />
+    <Assign sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_6">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[Category]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[jsonResponse("Category").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_7">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[Priority]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[jsonResponse("Priority").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_8">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[Summary]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[jsonResponse("Summary").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_9">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[SuggestedAction]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[jsonResponse("SuggestedAction").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_4" Message="[&quot;Category: &quot; &amp; Category &amp;&#xA;Environment.NewLine &amp;&#xA;&quot;Priority: &quot; &amp; Priority &amp;&#xA;Environment.NewLine &amp;&#xA;&quot;Summary: &quot; &amp; Summary &amp;&#xA;Environment.NewLine &amp;&#xA;&quot;Suggested Action: &quot; &amp; SuggestedAction]" />
+    <ui:IfElseIfV2 Condition="[Category=&quot;HR&quot;]" DisplayName="Else If" sap:VirtualizedContainerService.HintSize="451.2,1383.2" sap2010:WorkflowViewState.IdRef="IfElseIfV2_1">
+      <ui:IfElseIfV2.Else>
+        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,217.6" sap2010:WorkflowViewState.IdRef="Sequence_18">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:AppendLine File="{x:Null}" DisplayName="Append Line" FileName="[GlobalVariablesNamespace.GlobalVariables.GeneralReportPath]" sap:VirtualizedContainerService.HintSize="416,157.6" sap2010:WorkflowViewState.IdRef="AppendLine_5" Text="[&quot;====================================&quot; &amp; Environment.NewLine &amp;&#xA;&quot;Processed Time : &quot; &amp; Now.ToString(&quot;dd-MMM-yyyy hh:mm:ss tt&quot;) &amp; Environment.NewLine &amp;&#xA;Environment.NewLine &amp;&#xA;&quot;From : &quot; &amp; in_From &amp; Environment.NewLine &amp;&#xA;&quot;Subject : &quot; &amp; in_Subject &amp; Environment.NewLine &amp;&#xA;&quot;Priority : &quot; &amp; Priority &amp; Environment.NewLine &amp;&#xA;&quot;Summary : &quot; &amp; Summary &amp; Environment.NewLine &amp;&#xA;&quot;Suggested Action : &quot; &amp; SuggestedAction &amp; Environment.NewLine &amp;&#xA;&quot;Attachment : &quot; &amp; If(String.IsNullOrWhiteSpace(in_Attachment),&quot;No Attachment&quot;,in_Attachment) &amp; Environment.NewLine &amp;&#xA;&quot;====================================&quot; &amp; Environment.NewLine]" UseDefaultEncoding="False" />
+        </Sequence>
+      </ui:IfElseIfV2.Else>
+      <ui:IfElseIfV2.ElseIfs>
+        <sc:BindingList x:TypeArguments="ui:IfElseIfBlock" AllowEdit="True" AllowNew="True" AllowRemove="True" RaiseListChangedEvents="True">
+          <ui:IfElseIfBlock BlockType="ElseIf" Condition="[Category=&quot;IT&quot;]" DisplayName="If else if block" sap2010:WorkflowViewState.IdRef="IfElseIfBlock_4">
+            <ui:IfElseIfBlock.Then>
+              <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="449.6,217.6" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:AppendLine File="{x:Null}" DisplayName="Append Line" FileName="[GlobalVariablesNamespace.GlobalVariables.ITReportPath]" sap:VirtualizedContainerService.HintSize="416,157.6" sap2010:WorkflowViewState.IdRef="AppendLine_2" Text="[&quot;====================================&quot; &amp; Environment.NewLine &amp;&#xA;&quot;Processed Time : &quot; &amp; Now.ToString(&quot;dd-MMM-yyyy hh:mm:ss tt&quot;) &amp; Environment.NewLine &amp;&#xA;Environment.NewLine &amp;&#xA;&quot;From : &quot; &amp; in_From &amp; Environment.NewLine &amp;&#xA;&quot;Subject : &quot; &amp; in_Subject &amp; Environment.NewLine &amp;&#xA;&quot;Priority : &quot; &amp; Priority &amp; Environment.NewLine &amp;&#xA;&quot;Summary : &quot; &amp; Summary &amp; Environment.NewLine &amp;&#xA;&quot;Suggested Action : &quot; &amp; SuggestedAction &amp; Environment.NewLine &amp;&#xA;&quot;Attachment : &quot; &amp; If(String.IsNullOrWhiteSpace(in_Attachment),&quot;No Attachment&quot;,in_Attachment) &amp; Environment.NewLine &amp;&#xA;&quot;====================================&quot; &amp; Environment.NewLine]" UseDefaultEncoding="False" />
+              </Sequence>
+            </ui:IfElseIfBlock.Then>
+          </ui:IfElseIfBlock>
+          <ui:IfElseIfBlock BlockType="ElseIf" Condition="[Category=&quot;Finance&quot;]" DisplayName="If else if block" sap2010:WorkflowViewState.IdRef="IfElseIfBlock_5">
+            <ui:IfElseIfBlock.Then>
+              <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="449.6,217.6" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:AppendLine File="{x:Null}" DisplayName="Append Line" FileName="[GlobalVariablesNamespace.GlobalVariables.FinanceReportPath]" sap:VirtualizedContainerService.HintSize="416,157.6" sap2010:WorkflowViewState.IdRef="AppendLine_3" Text="[&quot;====================================&quot; &amp; Environment.NewLine &amp;&#xA;&quot;Processed Time : &quot; &amp; Now.ToString(&quot;dd-MMM-yyyy hh:mm:ss tt&quot;) &amp; Environment.NewLine &amp;&#xA;Environment.NewLine &amp;&#xA;&quot;From : &quot; &amp; in_From &amp; Environment.NewLine &amp;&#xA;&quot;Subject : &quot; &amp; in_Subject &amp; Environment.NewLine &amp;&#xA;&quot;Priority : &quot; &amp; Priority &amp; Environment.NewLine &amp;&#xA;&quot;Summary : &quot; &amp; Summary &amp; Environment.NewLine &amp;&#xA;&quot;Suggested Action : &quot; &amp; SuggestedAction &amp; Environment.NewLine &amp;&#xA;&quot;Attachment : &quot; &amp; If(String.IsNullOrWhiteSpace(in_Attachment),&quot;No Attachment&quot;,in_Attachment) &amp; Environment.NewLine &amp;&#xA;&quot;====================================&quot; &amp; Environment.NewLine]" UseDefaultEncoding="False" />
+              </Sequence>
+            </ui:IfElseIfBlock.Then>
+          </ui:IfElseIfBlock>
+          <ui:IfElseIfBlock BlockType="ElseIf" Condition="[Category=&quot;Leave&quot;]" DisplayName="If else if block" sap2010:WorkflowViewState.IdRef="IfElseIfBlock_6">
+            <ui:IfElseIfBlock.Then>
+              <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="449.6,217.6" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:AppendLine File="{x:Null}" DisplayName="Append Line" FileName="[GlobalVariablesNamespace.GlobalVariables.LeaveReportPath]" sap:VirtualizedContainerService.HintSize="416,157.6" sap2010:WorkflowViewState.IdRef="AppendLine_4" Text="[&quot;====================================&quot; &amp; Environment.NewLine &amp;&#xD;&#xA;&quot;Processed Time : &quot; &amp; Now.ToString(&quot;dd-MMM-yyyy hh:mm:ss tt&quot;) &amp; Environment.NewLine &amp;&#xD;&#xA;Environment.NewLine &amp;&#xD;&#xA;&quot;From : &quot; &amp; in_From &amp; Environment.NewLine &amp;&#xD;&#xA;&quot;Subject : &quot; &amp; in_Subject &amp; Environment.NewLine &amp;&#xD;&#xA;&quot;Priority : &quot; &amp; Priority &amp; Environment.NewLine &amp;&#xD;&#xA;&quot;Summary : &quot; &amp; Summary &amp; Environment.NewLine &amp;&#xD;&#xA;&quot;Suggested Action : &quot; &amp; SuggestedAction &amp; Environment.NewLine &amp;&#xD;&#xA;&quot;Attachment : &quot; &amp; If(String.IsNullOrWhiteSpace(in_Attachment),&quot;No Attachment&quot;,in_Attachment) &amp; Environment.NewLine &amp;&#xD;&#xA;&quot;====================================&quot; &amp; Environment.NewLine]" UseDefaultEncoding="False" />
+              </Sequence>
+            </ui:IfElseIfBlock.Then>
+          </ui:IfElseIfBlock>
+        </sc:BindingList>
+      </ui:IfElseIfV2.ElseIfs>
+      <ui:IfElseIfV2.Then>
+        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,217.6" sap2010:WorkflowViewState.IdRef="Sequence_14">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:AppendLine File="{x:Null}" DisplayName="Append Line" FileName="[GlobalVariablesNamespace.GlobalVariables.HRReportPath]" sap:VirtualizedContainerService.HintSize="416,157.6" sap2010:WorkflowViewState.IdRef="AppendLine_1" Text="[&quot;====================================&quot; &amp; Environment.NewLine &amp;&#xA;&quot;Processed Time : &quot; &amp; Now.ToString(&quot;dd-MMM-yyyy hh:mm:ss tt&quot;) &amp; Environment.NewLine &amp;&#xA;Environment.NewLine &amp;&#xA;&quot;From : &quot; &amp; in_From &amp; Environment.NewLine &amp;&#xA;&quot;Subject : &quot; &amp; in_Subject &amp; Environment.NewLine &amp;&#xA;&quot;Priority : &quot; &amp; Priority &amp; Environment.NewLine &amp;&#xA;&quot;Summary : &quot; &amp; Summary &amp; Environment.NewLine &amp;&#xA;&quot;Suggested Action : &quot; &amp; SuggestedAction &amp; Environment.NewLine &amp;&#xA;&quot;Attachment : &quot; &amp; If(String.IsNullOrWhiteSpace(in_Attachment),&quot;No Attachment&quot;,in_Attachment) &amp; Environment.NewLine &amp;&#xA;&quot;====================================&quot; &amp; Environment.NewLine]" UseDefaultEncoding="False" />
+        </Sequence>
+      </ui:IfElseIfV2.Then>
+    </ui:IfElseIfV2>
+  </Sequence>
+</Activity>
