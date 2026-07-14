@@ -1,39 +1,388 @@
-### Documentation is included in the Documentation folder ###
+# 🤖 AI-Powered Email Classification using UiPath REFramework & Generative AI
 
+## 📖 Project Overview
 
-### REFrameWork Template ###
-**Robotic Enterprise Framework**
+AI-Powered Email Classification is an intelligent automation solution developed using **UiPath REFramework**, **UiPath Orchestrator Queues**, **Gmail Integration**, and **Generative AI (GPT-5.1)**.
 
-* Built on top of *Transactional Business Process* template
-* Uses *State Machine* layout for the phases of automation project
-* Offers high level logging, exception handling and recovery
-* Keeps external settings in *Config.xlsx* file and Orchestrator assets
-* Pulls credentials from Orchestrator assets and *Windows Credential Manager*
-* Gets transaction data from Orchestrator queue and updates back status
-* Takes screenshots in case of system exceptions
+The objective of this project is to automate the process of reading incoming emails, classifying them into business departments using AI, extracting meaningful insights, and generating department-wise reports for business users.
 
+Traditional email processing solutions rely on keyword matching and predefined rules, which become difficult to maintain as business requirements grow. This project leverages Large Language Models (LLMs) to understand the actual meaning and context of emails before categorizing them.
 
-### How It Works ###
+The solution demonstrates how Robotic Process Automation (RPA) and Artificial Intelligence can work together to create intelligent enterprise automation.
 
-1. **INITIALIZE PROCESS**
- + ./Framework/*InitiAllSettings* - Load configuration data from Config.xlsx file and from assets
- + ./Framework/*GetAppCredential* - Retrieve credentials from Orchestrator assets or local Windows Credential Manager
- + ./Framework/*InitiAllApplications* - Open and login to applications used throughout the process
+---
 
-2. **GET TRANSACTION DATA**
- + ./Framework/*GetTransactionData* - Fetches transactions from an Orchestrator queue defined by Config("OrchestratorQueueName") or any other configured data source
+# 🎯 Business Problem
 
-3. **PROCESS TRANSACTION**
- + *Process* - Process trasaction and invoke other workflows related to the process being automated 
- + ./Framework/*SetTransactionStatus* - Updates the status of the processed transaction (Orchestrator transactions by default): Success, Business Rule Exception or System Exception
+Organizations receive hundreds of emails every day from employees and customers.
 
-4. **END PROCESS**
- + ./Framework/*CloseAllApplications* - Logs out and closes applications used throughout the process
+These emails may contain:
 
+- HR Requests
+- Salary Revision Requests
+- Leave Requests
+- IT Support Issues
+- Finance Queries
+- General Enquiries
 
-### For New Project ###
+Traditionally, employees manually read every email and decide which department should handle it.
 
-1. Check the Config.xlsx file and add/customize any required fields and values
-2. Implement InitiAllApplications.xaml and CloseAllApplicatoins.xaml workflows, linking them in the Config.xlsx fields
-3. Implement GetTransactionData.xaml and SetTransactionStatus.xaml according to the transaction type being used (Orchestrator queues by default)
-4. Implement Process.xaml workflow and invoke other workflows related to the process being automated
+This approach is:
+
+- Time consuming
+- Error prone
+- Difficult to scale
+- Requires significant manual effort
+
+This project automates the complete classification process using AI.
+
+---
+
+# 💡 Solution
+
+The automation performs the following tasks:
+
+- Connects to Gmail
+- Reads unread emails
+- Downloads email attachments
+- Stores each email as a Queue Item in UiPath Orchestrator
+- Processes each transaction using REFramework
+- Sends email details to GPT-5.1
+- AI classifies the email
+- AI returns structured JSON response
+- UiPath deserializes the JSON
+- Creates department-wise reports
+- Stores reports into department-specific folders
+
+---
+
+# 🏗 Solution Architecture
+
+```
+                Gmail Inbox
+                     │
+                     ▼
+          Read Unread Emails
+                     │
+                     ▼
+          Download Attachments
+                     │
+                     ▼
+              Producer Process
+                     │
+                     ▼
+         UiPath Orchestrator Queue
+                     │
+                     ▼
+              Consumer Process
+             (REFramework)
+                     │
+                     ▼
+      Build Prompt for AI Model
+                     │
+                     ▼
+     GPT-5.1 Content Generation
+                     │
+                     ▼
+        Structured JSON Response
+                     │
+                     ▼
+          Deserialize JSON
+                     │
+                     ▼
+       Extract Classification
+       • Category
+       • Priority
+       • Summary
+       • Suggested Action
+                     │
+                     ▼
+       Department-wise Reports
+                     │
+                     ▼
+      HR / Finance / IT / Leave /
+          General Report Files
+```
+
+---
+
+# ⚙ Technologies Used
+
+### RPA
+
+- UiPath Studio
+- UiPath REFramework
+- UiPath Orchestrator
+- Queue Based Processing
+
+### Artificial Intelligence
+
+- GPT-5.1
+- Prompt Engineering
+- JSON Response Generation
+
+### Email Automation
+
+- Gmail Integration
+- Email Processing
+- Attachment Handling
+
+### Data Processing
+
+- JSON Parsing
+- Deserialize JSON
+- Queue Transactions
+
+### Reporting
+
+- Text Report Generation
+- Department-wise Report Creation
+
+### Development Tools
+
+- Git
+- GitHub
+
+---
+
+# 📂 Project Structure
+
+```
+AI_Email_Classification
+
+│
+├── Framework
+│
+├── Producer.xaml
+│
+├── Process.xaml
+│
+├── Main.xaml
+│
+├── Config.xlsx
+│
+├── HR_MAIL
+│
+├── FINANCE_MAIL
+│
+├── IT_MAIL
+│
+├── LEAVE_MAIL
+│
+└── GENERAL_MAIL
+```
+
+---
+
+# 🔄 Workflow
+
+## 1. Initialization
+
+- Loads configuration from Config.xlsx
+- Initializes Gmail connection
+- Creates report paths
+- Loads required settings
+
+---
+
+## 2. Producer
+
+The Producer performs the following tasks:
+
+- Reads unread Gmail emails
+- Downloads attachments
+- Extracts
+
+  - Sender
+  - Subject
+  - Body
+  - Attachment Path
+
+- Creates Queue Items
+- Pushes each email into UiPath Orchestrator Queue
+
+---
+
+## 3. Consumer
+
+Consumer uses REFramework.
+
+Each Queue Item is processed individually.
+
+The consumer:
+
+- Reads Queue Item
+- Builds AI Prompt
+- Sends Email Details to GPT-5.1
+- Receives JSON Response
+- Deserializes JSON
+- Extracts
+
+  - Category
+  - Priority
+  - Summary
+  - Suggested Action
+
+---
+
+# 🤖 AI Prompt Engineering
+
+The AI receives:
+
+- Sender
+- Subject
+- Email Body
+- Attachment Information
+
+The model analyzes the complete email and returns structured JSON.
+
+Example:
+
+```json
+{
+  "Category":"HR",
+  "Priority":"Medium",
+  "Summary":"Employee requesting salary revision.",
+  "SuggestedAction":"Forward request to HR Team."
+}
+```
+
+---
+
+# 📋 Email Categories
+
+The AI classifies emails into:
+
+- HR
+- Finance
+- IT
+- Leave
+- General
+
+---
+
+# 📄 Report Generation
+
+Instead of generating a single report, the solution generates department-specific reports.
+
+Example:
+
+```
+HR_MAIL
+
+HR_Report_20260714.txt
+```
+
+```
+FINANCE_MAIL
+
+Finance_Report_20260714.txt
+```
+
+```
+IT_MAIL
+
+IT_Report_20260714.txt
+```
+
+```
+LEAVE_MAIL
+
+Leave_Report_20260714.txt
+```
+
+```
+GENERAL_MAIL
+
+General_Report_20260714.txt
+```
+
+Each report contains:
+
+- Processed Time
+- Sender
+- Subject
+- Priority
+- AI Summary
+- Suggested Action
+- Attachment Details
+
+---
+
+# ⭐ Features
+
+- Queue Based Processing
+- REFramework Architecture
+- Gmail Integration
+- AI Powered Email Classification
+- JSON Response Handling
+- Attachment Processing
+- Department-wise Report Generation
+- Exception Handling
+- Retry Mechanism
+- Modular Workflow Design
+
+---
+
+# 🔒 Exception Handling
+
+The project follows UiPath REFramework best practices.
+
+- Business Exceptions
+- System Exceptions
+- Retry Logic
+- Queue Transaction Status Update
+- Detailed Logging
+
+---
+
+# 🚀 Future Enhancements
+
+- Power BI Dashboard
+- SharePoint Integration
+- SQL Database Storage
+- Email Notifications
+- Sentiment Analysis
+- Confidence Score
+- AI-based Auto Reply
+- ServiceNow Ticket Creation
+- Automatic Case Assignment
+- Multi-language Email Support
+
+---
+
+# 📈 Business Benefits
+
+- Reduces manual email processing
+- Faster email triaging
+- Improves operational efficiency
+- Consistent AI-based classification
+- Department-specific reporting
+- Scalable enterprise solution
+- Demonstrates RPA + AI integration
+
+---
+
+# 👨‍💻 Author
+
+**Kaviyanjali V**
+
+Software Engineer | UiPath RPA Developer
+
+Skills:
+
+- UiPath
+- REFramework
+- Orchestrator
+- Queue Processing
+- Gmail Automation
+- Generative AI
+- Prompt Engineering
+- JSON Handling
+- Intelligent Automation
+
+---
+
+# 📜 License
+
+This project is created for learning, demonstration, and portfolio purposes.
